@@ -73,141 +73,144 @@ export default function PhotoBooth({
   }, [output]);
 
   return (
-    <motion.div
-      className="group relative mx-auto mt-10 h-[350px] w-full overflow-hidden rounded-2xl border border-gray-200 sm:h-[600px] sm:w-[600px]"
-      variants={FADE_DOWN_ANIMATION_VARIANTS}
-    >
-      <button
-        onClick={() => setState(state === "output" ? "input" : "output")}
-        className="absolute left-5 top-5 z-10 rounded-full border border-gray-200 bg-white px-4 py-2 shadow-sm transition-all hover:scale-105 active:scale-95"
+    <>
+      <UploadModal />
+      <motion.div
+        className="group relative mx-auto mt-10 h-[350px] w-full overflow-hidden rounded-2xl border border-gray-200 sm:h-[600px] sm:w-[600px]"
+        variants={FADE_DOWN_ANIMATION_VARIANTS}
       >
-        <p className="text-sm font-semibold text-gray-500">
-          {state === "output" ? "查看原图" : "查看推演动图"}
-        </p>
-      </button>
-      {/* 
+        <button
+          onClick={() => setState(state === "output" ? "input" : "output")}
+          className="absolute left-5 top-5 z-10 rounded-full border border-gray-200 bg-white px-4 py-2 shadow-sm transition-all hover:scale-105 active:scale-95"
+        >
+          <p className="text-sm font-semibold text-gray-500">
+            {state === "output" ? "查看原图" : "查看推演动图"}
+          </p>
+        </button>
+        {/* 
         only show the download button if:
           - it's on a page with an id (i.e. not the demo page) 
           - there's an output
           - we're in the output tab
       */}
-      {id && output && state === "output" && !failed && (
-        <button
-          onClick={() => {
-            setDownloading(true);
-            fetch(output, {
-              headers: new Headers({
-                Origin: location.origin,
-              }),
-              mode: "cors",
-            })
-              .then((response) => response.blob())
-              .then((blob) => {
-                let blobUrl = window.URL.createObjectURL(blob);
-                forceDownload(
-                  blobUrl,
-                  `${id || "demo"}.${state === "output" ? "gif" : ""}`,
-                );
-                setDownloading(false);
+        {id && output && state === "output" && !failed && (
+          <button
+            onClick={() => {
+              setDownloading(true);
+              fetch(output, {
+                headers: new Headers({
+                  Origin: location.origin,
+                }),
+                mode: "cors",
               })
-              .catch((e) => console.error(e));
+                .then((response) => response.blob())
+                .then((blob) => {
+                  let blobUrl = window.URL.createObjectURL(blob);
+                  forceDownload(
+                    blobUrl,
+                    `${id || "demo"}.${state === "output" ? "gif" : ""}`,
+                  );
+                  setDownloading(false);
+                })
+                .catch((e) => console.error(e));
+            }}
+            className="absolute right-5 top-5 z-10 flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 bg-white shadow-sm transition-all hover:scale-105 active:scale-95"
+          >
+            {downloading ? (
+              <LoadingCircle />
+            ) : (
+              <Download className="h-5 w-5 text-gray-500" />
+            )}
+          </button>
+        )}
+        <MotionConfig
+          transition={{
+            x: { type: "spring", stiffness: 300, damping: 30 },
+            opacity: { duration: 0.2 },
           }}
-          className="absolute right-5 top-5 z-10 flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 bg-white shadow-sm transition-all hover:scale-105 active:scale-95"
         >
-          {downloading ? (
-            <LoadingCircle />
-          ) : (
-            <Download className="h-5 w-5 text-gray-500" />
-          )}
-        </button>
-      )}
-      <MotionConfig
-        transition={{
-          x: { type: "spring", stiffness: 300, damping: 30 },
-          opacity: { duration: 0.2 },
-        }}
-      >
-        <AnimatePresence initial={false} custom={direction}>
-          {state === "output" ? (
-            <motion.div
-              key={output}
-              custom={direction}
-              variants={variants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              className="absolute h-full w-full"
-            >
-              {failed && (
-                <div className="z-10 flex h-full w-full flex-col items-center bg-white pt-[140px] sm:pt-[280px]">
-                  <p className="text-sm text-red-600">
-                    推演失败：没有在图片中找到人脸，请尝试使用另一张图片
-                  </p>
+          <AnimatePresence initial={false} custom={direction}>
+            {state === "output" ? (
+              <motion.div
+                key={output}
+                custom={direction}
+                variants={variants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                className="absolute h-full w-full"
+              >
+                {failed && (
+                  <div className="z-10 flex h-full w-full flex-col items-center bg-white pt-[140px] sm:pt-[280px]">
+                    <p className="px-4 text-sm text-red-600">
+                      推演失败：没有在图片中找到人脸，请尝试使用另一张图片
+                    </p>
 
-                  <button
-                    onClick={() => setShowUploadModal(true)}
-                    className="group mx-auto mt-6 flex max-w-fit items-center justify-center space-x-2 rounded-full border border-black bg-black px-5 py-2 text-sm text-white transition-colors hover:bg-white hover:text-black"
-                  >
-                    <Upload className="h-5 w-5 text-white group-hover:text-black" />
-                    <p>重新上传</p>
-                  </button>
-                </div>
-              )}
-              {loading && (
-                <div className="z-10 flex h-full w-full flex-col items-center bg-white pt-[140px] sm:pt-[280px]">
-                  <LoadingCircle />
-                  {id && showForm && (
-                    <motion.div
-                      className="my-4 flex flex-col items-center space-y-4"
-                      initial="hidden"
-                      whileInView="show"
-                      animate="show"
-                      viewport={{ once: true }}
+                    <button
+                      className="group mx-auto mt-6 flex max-w-fit items-center justify-center space-x-2 rounded-full border border-black bg-black px-5 py-2 text-sm text-white transition-colors hover:bg-white hover:text-black"
+                      onClick={() => setShowUploadModal(true)}
                     >
-                      <motion.p
-                        className="text-sm text-gray-500"
-                        variants={FADE_DOWN_ANIMATION_VARIANTS}
+                      <Upload className="h-5 w-5 text-white group-hover:text-black" />
+                      <p>重新上传</p>
+                    </button>
+                  </div>
+                )}
+                {loading && (
+                  <div className="z-10 flex h-full w-full flex-col items-center bg-white pt-[140px] sm:pt-[280px]">
+                    <LoadingCircle />
+                    {id && showForm && (
+                      <motion.div
+                        className="my-4 flex flex-col items-center space-y-4"
+                        initial="hidden"
+                        whileInView="show"
+                        animate="show"
+                        viewport={{ once: true }}
                       >
-                        推演过程可能需要2-3分钟，请不要刷新页面
-                      </motion.p>
-                    </motion.div>
-                  )}
-                </div>
-              )}
-              {output && (
+                        <motion.p
+                          className="text-sm text-gray-500"
+                          variants={FADE_DOWN_ANIMATION_VARIANTS}
+                        >
+                          推演过程可能需要2-3分钟，请不要刷新页面
+                        </motion.p>
+                      </motion.div>
+                    )}
+                  </div>
+                )}
+                {output && (
+                  <Image
+                    alt="output image"
+                    src={output}
+                    width={1280}
+                    height={1280}
+                    className="h-full object-cover"
+                    onLoadStart={() => setLoading(true)}
+                    onLoadingComplete={() => setLoading(false)}
+                  />
+                )}
+              </motion.div>
+            ) : (
+              <motion.div
+                key={input}
+                custom={direction}
+                variants={variants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                className="absolute h-full w-full"
+              >
                 <Image
-                  alt="output image"
-                  src={output}
-                  width={1280}
-                  height={1280}
-                  className="h-full object-cover"
-                  onLoadStart={() => setLoading(true)}
-                  onLoadingComplete={() => setLoading(false)}
+                  alt="original image"
+                  src={input}
+                  className="object-cover"
+                  placeholder="blur"
+                  blurDataURL={blurDataURL}
+                  fill
                 />
-              )}
-            </motion.div>
-          ) : (
-            <motion.div
-              key={input}
-              custom={direction}
-              variants={variants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              className="absolute h-full w-full"
-            >
-              <Image
-                alt="original image"
-                src={input}
-                className="object-cover"
-                placeholder="blur"
-                blurDataURL={blurDataURL}
-                fill
-              />
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </MotionConfig>
-    </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </MotionConfig>
+      </motion.div>
+    </>
   );
 }
