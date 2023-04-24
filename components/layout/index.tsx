@@ -44,8 +44,8 @@ export default function Layout({
             <p>Aging</p>
           </Link>
           <div className="flex items-center space-x-4">
-            <Link href="/gallery">展馆</Link>
-            <Link href="/sign">注册</Link>
+            <Link href="/sign">登陆</Link>
+            <div className="h-7 w-7 shrink-0 rounded-full bg-gradient-to-r from-cyan-200 to-[#41c6b0]"></div>
           </div>
         </div>
       </div>
@@ -56,30 +56,22 @@ export default function Layout({
         <p className="text-gray-500">
           <a
             className="font-semibold text-gray-600 transition-colors hover:text-black"
-            href="https://vercel.com"
+            href="https://yesmore.cc"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Vercel
-          </a>{" "}
-          ·{" "}
-          <a
-            className="font-semibold text-gray-600 transition-colors hover:text-black"
-            href="https://replicate.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Replicate
-          </a>{" "}
-          ·{" "}
-          <a
-            className="font-semibold text-gray-600 transition-colors hover:text-black"
-            href="https://upstash.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Upstash
+            Copyright © yesmore 2023
           </a>
+          {/* {" "}
+          ·{" "}
+          <a
+            className="font-semibold text-gray-600 transition-colors hover:text-black"
+            href="https://b.qachat.pro"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            AI 导航
+          </a> */}
         </p>
       </div>
     </>

@@ -19,7 +19,7 @@ export default function Sign() {
           },
         }}
       >
-        hello
+        Working...
       </motion.div>
     </Layout>
   );

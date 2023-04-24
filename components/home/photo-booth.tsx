@@ -162,10 +162,10 @@ export default function PhotoBooth({
                         viewport={{ once: true }}
                       >
                         <motion.p
-                          className="text-sm text-gray-500"
+                          className="px-4 text-sm text-gray-500"
                           variants={FADE_DOWN_ANIMATION_VARIANTS}
                         >
-                          推演过程可能需要2-3分钟，请不要刷新页面
+                          推演过程可能需要2-3分钟，请勿刷新页面
                         </motion.p>
                       </motion.div>
                     )}
