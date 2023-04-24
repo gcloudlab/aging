@@ -40,7 +40,8 @@ export default function Home({ count }: { count: number }) {
           variants={FADE_DOWN_ANIMATION_VARIANTS}
         >
           <Balancer ratio={0.6}>
-            想知道自己十年后、二十年后或者九十岁的样子会是怎样的吗？上传一张照片，就能找到答案！{" "}
+            想知道自己十年后、二十年后或者九十岁的样子会是怎样的吗？上传一张照片，AI
+            帮你生成～
             <Tooltip
               content={
                 <div className="flex flex-col items-center justify-center space-y-3 p-10 text-center sm:max-w-xs">

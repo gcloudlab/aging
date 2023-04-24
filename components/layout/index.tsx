@@ -30,7 +30,7 @@ export default function Layout({
         } z-30 transition-all`}
       >
         <div className="mx-5 flex h-16 max-w-screen-xl items-center justify-between xl:mx-auto">
-          <Link href="/" className="items-top flex font-display text-2xl">
+          <Link href="/" className="flex items-center font-display text-2xl">
             <svg
               width="25"
               height="25"
@@ -53,16 +53,7 @@ export default function Layout({
         {children}
       </main>
       <div className="absolute w-full border-t border-gray-200 bg-white py-5 text-center">
-        <p className="flex items-center justify-center text-gray-500">
-          <a
-            className="font-semibold text-gray-600 transition-colors hover:text-black"
-            href="https://yesmore.cc"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Copyright © yesmore 2023
-          </a>
-          <span className="mx-2">·</span>
+        <p className="flex justify-center text-gray-500">
           <a
             className=" font-semibold text-gray-600 transition-colors hover:text-black"
             href="https://github.com/gcloudlab/aging"
