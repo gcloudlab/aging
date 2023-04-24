@@ -81,7 +81,7 @@ export default function PhotoBooth({
           className="absolute left-5 top-5 z-10 rounded-full border border-gray-200 bg-white px-4 py-2 shadow-sm transition-all hover:scale-105 active:scale-95"
         >
           <p className="text-sm font-semibold text-gray-500">
-            {state === "output" ? "查看原图" : "查看推演Gif"}
+            {state === "output" ? "查看原图" : "查看推演GIF"}
           </p>
         </button>
         {/* 
