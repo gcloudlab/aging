@@ -1,11 +1,11 @@
 import Head from "next/head";
 
 export const defaultMetaProps = {
-  title: 'Aging - Oh my life',
+  title: "Aging - Oh my life",
   description:
-    '只需上传一张你现在的照片，Aging 将利用人工智能技术推演出你从幼年到老年的面容变化。',
+    "只需上传一张你现在的照片，Aging 将利用人工智能技术推演出你从幼年到老年的面容变化。",
   ogImage: ``,
-  ogUrl: 'https://ai.aging.run'
+  ogUrl: "https://ai.aging.run",
 };
 
 export interface MetaProps {
@@ -15,24 +15,17 @@ export interface MetaProps {
   ogImage?: string;
 }
 
-export default function Meta({
-  title = "Aging - Oh my life",
-  description = "只需上传一张你现在的照片，Aging 将利用人工智能技术推演出你从幼年到老年的面容变化。",
-}: {
-  title?: string;
-  description?: string;
-  image?: string;
-}) {
+export default function Meta({ props }: { props: MetaProps }) {
   return (
     <Head>
-      <title>{title}</title>
-      <meta name="description" content={description} />
+      <title>{props.title}</title>
+      <meta name="description" content={props.description} />
       <link rel="icon" href="/vercel.svg" />
 
       <meta charSet="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <meta property="og:title" content={title} />
-      <meta property="og:description" content={description} />
+      <meta property="og:title" content={props.title} />
+      <meta property="og:description" content={props.description} />
     </Head>
   );
 }

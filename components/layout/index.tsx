@@ -3,7 +3,7 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import useScroll from "@/lib/hooks/use-scroll";
-import Meta from "./meta";
+import Meta, { defaultMetaProps } from "./meta";
 import { Github } from "../shared/icons";
 import { LoadingDots } from "@/components/icons";
 
@@ -24,7 +24,7 @@ export default function Layout({
 
   return (
     <>
-      <Meta {...meta} />
+      <Meta props={defaultMetaProps} />
       <div className="fixed h-screen w-full bg-gradient-to-br from-emerald-200 via-blue-100 to-rose-200" />
       <div
         className={`fixed top-0 w-full ${
