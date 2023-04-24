@@ -55,15 +55,14 @@ export default function PhotoPage({
           className="bg-gradient-to-br from-black to-stone-500 bg-clip-text text-center font-display text-4xl font-bold tracking-[-0.02em] text-transparent drop-shadow-sm md:text-7xl md:leading-[5rem]"
           variants={FADE_DOWN_ANIMATION_VARIANTS}
         >
-          Your Results
+          你的推演
         </motion.h1>
         <motion.p
           className="mt-6 text-center text-gray-500 md:text-xl"
           variants={FADE_DOWN_ANIMATION_VARIANTS}
         >
           <Balancer ratio={0.6}>
-            Your photos will be stored in our servers for 24 hours. After that,
-            they will be deleted.
+            您的照片将在我们的服务器中存储24小时，之后将被删除。
           </Balancer>
         </motion.p>
         {data?.expired ? (
@@ -72,14 +71,14 @@ export default function PhotoPage({
             variants={FADE_DOWN_ANIMATION_VARIANTS}
           >
             <p className="text-sm text-gray-500">
-              Your photos have been deleted. Please upload a new photo.
+              您的照片已被删除，请上传一张新照片
             </p>
             <button
               className="group mx-auto mt-6 flex max-w-fit items-center justify-center space-x-2 rounded-full border border-black bg-black px-5 py-2 text-sm text-white transition-colors hover:bg-white hover:text-black"
               onClick={() => setShowUploadModal(true)}
             >
               <Upload className="h-5 w-5 text-white group-hover:text-black" />
-              <p>Upload another photo</p>
+              <p>上传另一张</p>
             </button>
           </motion.div>
         ) : (

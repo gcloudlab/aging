@@ -1,7 +1,7 @@
 import Head from "next/head";
 
 export default function Meta({
-  title = "Aging - AI推演",
+  title = "Aging - Oh my life",
   description = "只需上传一张你现在的照片，Aging 将利用人工智能技术推演出你从幼年到老年的面容变化。",
 }: {
   title?: string;
