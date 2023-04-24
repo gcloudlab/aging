@@ -121,7 +121,7 @@ export async function getAllUsers(): Promise<ResultProps[]> {
 
 export async function searchUser(query: string): Promise<UserProps[]> {
   const client = await clientPromise;
-  const collection = client.db("test").collection("users");
+  const collection = client.db("aging").collection("users");
   return await collection
     .aggregate<UserProps>([
       {
@@ -200,12 +200,12 @@ export async function searchUser(query: string): Promise<UserProps[]> {
 
 export async function getUserCount(): Promise<number> {
   const client = await clientPromise;
-  const collection = client.db("test").collection("users");
+  const collection = client.db("aging").collection("users");
   return await collection.countDocuments();
 }
 
 export async function updateUser(username: string, bio: string) {
   const client = await clientPromise;
-  const collection = client.db("test").collection("users");
+  const collection = client.db("aging").collection("users");
   return await collection.updateOne({ username }, { $set: { bio } });
 }

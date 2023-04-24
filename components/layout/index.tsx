@@ -51,15 +51,14 @@ export default function Layout({
             {status !== "loading" &&
               (session?.user ? (
                 <Link href={`/${session.username}`}>
-                  <a className="h-8 w-8 overflow-hidden rounded-full">
+                  <a>
                     <Image
+                      className="h-9 w-9 overflow-hidden rounded-full"
                       src={
                         session.user.image ||
                         `https://avatar.tobi.sh/${session.user.name}`
                       }
                       alt={session.user.name || "User"}
-                      width={300}
-                      height={300}
                       placeholder="blur"
                       blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQYV2PYsGHDfwAHNAMQumvbogAAAABJRU5ErkJggg=="
                     />
