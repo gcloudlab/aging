@@ -7,7 +7,6 @@ import { useEffect, useMemo, useState } from "react";
 import { LoadingCircle } from "../shared/icons";
 import Link from "next/link";
 import { Upload } from "lucide-react";
-import { useUploadModal } from "./upload-modal";
 
 const variants = {
   enter: (direction: number) => {
@@ -56,7 +55,6 @@ export default function PhotoBooth({
   const [downloading, setDownloading] = useState(false);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
-  const { UploadModal, setShowUploadModal } = useUploadModal();
 
   useEffect(() => {
     setTimeout(() => {
@@ -74,7 +72,6 @@ export default function PhotoBooth({
 
   return (
     <>
-      <UploadModal />
       <motion.div
         className="group relative mx-auto mt-10 h-[350px] w-full overflow-hidden rounded-2xl border border-gray-200 sm:h-[600px] sm:w-[600px]"
         variants={FADE_DOWN_ANIMATION_VARIANTS}
@@ -84,7 +81,7 @@ export default function PhotoBooth({
           className="absolute left-5 top-5 z-10 rounded-full border border-gray-200 bg-white px-4 py-2 shadow-sm transition-all hover:scale-105 active:scale-95"
         >
           <p className="text-sm font-semibold text-gray-500">
-            {state === "output" ? "查看原图" : "查看推演动图"}
+            {state === "output" ? "查看原图" : "查看推演Gif"}
           </p>
         </button>
         {/* 
@@ -145,14 +142,12 @@ export default function PhotoBooth({
                     <p className="px-4 text-sm text-red-600">
                       推演失败：没有在图片中找到人脸，请尝试使用另一张图片
                     </p>
-
-                    <button
-                      className="group mx-auto mt-6 flex max-w-fit items-center justify-center space-x-2 rounded-full border border-black bg-black px-5 py-2 text-sm text-white transition-colors hover:bg-white hover:text-black"
-                      onClick={() => setShowUploadModal(true)}
-                    >
-                      <Upload className="h-5 w-5 text-white" />
-                      <p>重新上传</p>
-                    </button>
+                    <Link href={"/"}>
+                      <button className="group mx-auto mt-6 flex max-w-fit items-center justify-center space-x-2 rounded-full border border-black bg-black px-5 py-2 text-sm text-white transition-colors hover:bg-white hover:text-black">
+                        <Upload className="h-5 w-5 text-white group-hover:text-black" />
+                        <p>重新上传</p>
+                      </button>
+                    </Link>
                   </div>
                 )}
                 {loading && (

@@ -90,7 +90,7 @@ const UploadModal = ({
                 router.push(`/p/${key}`);
               } else {
                 setSaving(false);
-                alert("Something went wrong. Please try again later.");
+                alert("出错了，请稍后再试.");
               }
             });
           }}

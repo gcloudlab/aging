@@ -44,16 +44,8 @@ export default function Layout({
             <p>Aging</p>
           </Link>
           <div className="flex items-center space-x-4">
-            {/* <a
-              href="https://github.com/gcloudlab/older"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Github />
-            </a> */}
-            <a href="javascript:;;" rel="noopener noreferrer">
-              注册
-            </a>
+            <Link href="/gallery">展馆</Link>
+            <Link href="/sign">注册</Link>
           </div>
         </div>
       </div>
