@@ -58,18 +58,21 @@ const UploadModal = ({
     <Modal showModal={showUploadModal} setShowModal={setShowUploadModal}>
       <div className="w-full overflow-hidden shadow-xl md:max-w-md md:rounded-2xl md:border md:border-gray-200">
         <div className="flex flex-col items-center justify-center space-y-3 border-b border-gray-200 bg-white px-4 py-6 pt-8 text-center md:px-16">
-          <a href="https://extrapolate.app">
-            <Image
-              src="/logo.png"
-              alt="Logo"
-              className="h-10 w-10 rounded-full"
-              width={20}
-              height={20}
-            />
+          <a href="https://ai.aging.run">
+            <svg
+              width="25"
+              height="25"
+              viewBox="0 0 1155 1000"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="mr-2 rounded-sm"
+            >
+              <path d="M577.344 0L1154.69 1000H0L577.344 0Z" fill="black" />
+            </svg>
           </a>
-          <h3 className="font-display text-2xl font-bold">Upload Photo</h3>
+          <h3 className="font-display text-2xl font-bold">上传照片</h3>
           <p className="text-sm text-gray-500">
-            Your photos will be automatically deleted after 24 hours.
+            您上传的所有照片将在24小时后自动销毁.
           </p>
         </div>
 
@@ -94,11 +97,9 @@ const UploadModal = ({
         >
           <div>
             <div className="flex items-center justify-between">
-              <p className="block text-sm font-medium text-gray-700">Photo</p>
+              <p className="block text-sm font-medium text-gray-700">照片</p>
               {fileSizeTooBig && (
-                <p className="text-sm text-red-500">
-                  File size too big (max 5MB)
-                </p>
+                <p className="text-sm text-red-500">文件太大了(5MB 以内)</p>
               )}
             </div>
             <label
@@ -159,12 +160,12 @@ const UploadModal = ({
                   } h-7 w-7 text-gray-500 transition-all duration-75 group-hover:scale-110 group-active:scale-95`}
                 />
                 <p className="mt-2 text-center text-sm text-gray-500">
-                  Drag and drop or click to upload.
+                  拖拽或点击上传
                 </p>
                 <p className="mt-2 text-center text-sm text-gray-500">
-                  Recommended: 1:1 square ratio, with a clear view of your face
+                  建议使用1:1方形比例的照片，且确保面部清晰可见
                 </p>
-                <span className="sr-only">Photo upload</span>
+                <span className="sr-only">照片上传</span>
               </div>
               {data.image && (
                 // eslint-disable-next-line @next/next/no-img-element
@@ -198,7 +199,7 @@ const UploadModal = ({
             {saving ? (
               <LoadingDots color="#808080" />
             ) : (
-              <p className="text-sm">Confirm upload</p>
+              <p className="text-sm">立即上传</p>
             )}
           </button>
         </form>

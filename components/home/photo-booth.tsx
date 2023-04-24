@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import { LoadingCircle } from "../shared/icons";
+import Link from "next/link";
 
 const variants = {
   enter: (direction: number) => {
@@ -78,7 +79,7 @@ export default function PhotoBooth({
         className="absolute left-5 top-5 z-10 rounded-full border border-gray-200 bg-white px-4 py-2 shadow-sm transition-all hover:scale-105 active:scale-95"
       >
         <p className="text-sm font-semibold text-gray-500">
-          {state === "output" ? "View original" : "View result"}
+          {state === "output" ? "查看原图" : "查看推演动图"}
         </p>
       </button>
       {/* 
@@ -137,8 +138,11 @@ export default function PhotoBooth({
               {failed && (
                 <div className="z-10 flex h-full w-full flex-col items-center bg-white pt-[140px] sm:pt-[280px]">
                   <p className="text-sm text-red-600">
-                    Failed to run - could not find face in image. Try another!
+                    推演失败：没有在图片中找到人脸，请尝试使用另一张图片
                   </p>
+                  <Link href="/" className="font-display">
+                    重新上传
+                  </Link>
                 </div>
               )}
               {loading && (
@@ -156,7 +160,7 @@ export default function PhotoBooth({
                         className="text-sm text-gray-500"
                         variants={FADE_DOWN_ANIMATION_VARIANTS}
                       >
-                        This can take anywhere between 2-3 minutes to run.
+                        推演过程可能需要2-3分钟，请不要刷新页面
                       </motion.p>
                     </motion.div>
                   )}
