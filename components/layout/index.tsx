@@ -1,9 +1,11 @@
+import { ReactNode, useState } from "react";
+import { useSession, signIn, signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { ReactNode } from "react";
 import useScroll from "@/lib/hooks/use-scroll";
 import Meta from "./meta";
 import { Github } from "../shared/icons";
+import { LoadingDots } from "@/components/icons";
 
 export default function Layout({
   meta,
@@ -17,6 +19,8 @@ export default function Layout({
   children: ReactNode;
 }) {
   const scrolled = useScroll(50);
+  const { data: session, status } = useSession();
+  const [loading, setLoading] = useState(false);
 
   return (
     <>
@@ -44,14 +48,51 @@ export default function Layout({
             <p>Aging</p>
           </Link>
           <div className="flex items-center space-x-4">
-            <Link href="/sign">登陆</Link>
-            <div className="h-7 w-7 shrink-0 rounded-full bg-gradient-to-r from-cyan-200 to-[#41c6b0]"></div>
+            {status !== "loading" &&
+              (session?.user ? (
+                <Link href={`/${session.username}`}>
+                  <a className="h-8 w-8 overflow-hidden rounded-full">
+                    <Image
+                      src={
+                        session.user.image ||
+                        `https://avatar.tobi.sh/${session.user.name}`
+                      }
+                      alt={session.user.name || "User"}
+                      width={300}
+                      height={300}
+                      placeholder="blur"
+                      blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQYV2PYsGHDfwAHNAMQumvbogAAAABJRU5ErkJggg=="
+                    />
+                  </a>
+                </Link>
+              ) : (
+                <button
+                  disabled={loading}
+                  onClick={() => {
+                    setLoading(true);
+                    signIn("github", { callbackUrl: `/profile` });
+                  }}
+                  className={`${
+                    loading
+                      ? "border-gray-300 bg-gray-200"
+                      : "border-black bg-black hover:bg-white"
+                  } h-8 w-36 rounded-md border py-1 text-sm text-white transition-all hover:text-black`}
+                >
+                  {loading ? (
+                    <LoadingDots color="gray" />
+                  ) : (
+                    "Log in with GitHub"
+                  )}
+                </button>
+              ))}
           </div>
         </div>
       </div>
+
       <main className="flex min-h-screen w-full flex-col items-center justify-center py-32">
         {children}
       </main>
+
       <div className="absolute w-full border-t border-gray-200 bg-white py-5 text-center">
         <p className="flex justify-center text-gray-500">
           <a

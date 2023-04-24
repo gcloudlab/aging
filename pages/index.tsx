@@ -8,6 +8,14 @@ import PhotoBooth from "@/components/home/photo-booth";
 import { redis } from "@/lib/upstash";
 import Tooltip from "@/components/shared/tooltip";
 import { nFormatter } from "@/lib/utils";
+import Profile from "@/components/profile";
+import {
+  getAllUsers,
+  UserProps,
+  getUserCount,
+  getFirstUser,
+} from "@/lib/api/user";
+import clientPromise from "@/lib/mongodb";
 
 export default function Home({ count }: { count: number }) {
   const { UploadModal, setShowUploadModal } = useUploadModal();
@@ -79,11 +87,39 @@ export default function Home({ count }: { count: number }) {
   );
 }
 
+// export default function Home({ user }: { user: UserProps }) {
+//   return <Profile user={user} settings={false} />;
+// }
+
 export async function getStaticProps() {
+  try {
+    await clientPromise;
+  } catch (e: any) {
+    if (e.code === "ENOTFOUND") {
+      // cluster is still provisioning
+      return {
+        props: {
+          clusterStillProvisioning: true,
+        },
+      };
+    } else {
+      throw new Error(`Connection limit reached. Please try again later.`);
+    }
+  }
+
+  const results = await getAllUsers();
+  const totalUsers = await getUserCount();
+  const firstUser = await getFirstUser();
+  console.log(results, totalUsers, firstUser);
+
   const count = await redis.dbsize();
+
   return {
     props: {
       count,
+      results,
+      totalUsers,
+      user: firstUser,
     },
     revalidate: 60,
   };

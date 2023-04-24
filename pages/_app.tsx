@@ -3,6 +3,7 @@ import type { AppProps } from "next/app";
 import { Analytics } from "@vercel/analytics/react";
 import { Provider as RWBProvider } from "react-wrap-balancer";
 import cx from "classnames";
+import { SessionProvider } from "next-auth/react";
 import localFont from "next/font/local";
 import { Inter } from "next/font/google";
 
@@ -21,11 +22,11 @@ export default function MyApp({
   pageProps: { session, ...pageProps },
 }: AppProps) {
   return (
-    <RWBProvider>
+    <SessionProvider session={session}>
       <main className={cx(clash.variable, inter.variable)}>
         <Component {...pageProps} />
       </main>
       <Analytics />
-    </RWBProvider>
+    </SessionProvider>
   );
 }

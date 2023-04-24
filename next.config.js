@@ -4,6 +4,7 @@ const nextConfig = {
   swcMinify: true,
   images: {
     domains: [
+      "avatars.githubusercontent.com",
       "older.yesmore.workers.dev",
       "replicate.delivery",
       "i.postimg.cc",
