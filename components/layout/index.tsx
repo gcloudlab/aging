@@ -53,7 +53,7 @@ export default function Layout({
         {children}
       </main>
       <div className="absolute w-full border-t border-gray-200 bg-white py-5 text-center">
-        <p className="text-gray-500">
+        <p className="flex items-center justify-center text-gray-500">
           <a
             className="font-semibold text-gray-600 transition-colors hover:text-black"
             href="https://yesmore.cc"
@@ -62,16 +62,15 @@ export default function Layout({
           >
             Copyright © yesmore 2023
           </a>
-          {/* {" "}
-          ·{" "}
+          <span className="mx-2">·</span>
           <a
-            className="font-semibold text-gray-600 transition-colors hover:text-black"
-            href="https://b.qachat.pro"
+            className=" font-semibold text-gray-600 transition-colors hover:text-black"
+            href="https://github.com/gcloudlab/aging"
             target="_blank"
             rel="noopener noreferrer"
           >
-            AI 导航
-          </a> */}
+            <Github />
+          </a>
         </p>
       </div>
     </>
