@@ -9,7 +9,7 @@ import {
 } from "react";
 import Image from "next/image";
 import { UploadCloud } from "lucide-react";
-import { LoadingDots } from "@/components/shared/icons";
+import { LoadingDots } from "../icons";
 import { useRouter } from "next/router";
 
 const UploadModal = ({
@@ -59,16 +59,13 @@ const UploadModal = ({
       <div className="w-full overflow-hidden shadow-xl md:max-w-md md:rounded-2xl md:border md:border-gray-200">
         <div className="flex flex-col items-center justify-center space-y-3 border-b border-gray-200 bg-white px-4 py-6 pt-8 text-center md:px-16">
           <a href="https://ai.aging.run">
-            <svg
-              width="25"
-              height="25"
-              viewBox="0 0 1155 1000"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+            <Image
+              src="/logo.png"
+              alt="Logo image of a chat bubble"
+              width="30"
+              height="30"
               className="mr-2 rounded-sm"
-            >
-              <path d="M577.344 0L1154.69 1000H0L577.344 0Z" fill="black" />
-            </svg>
+            ></Image>
           </a>
           <h3 className="font-display text-2xl font-bold">上传照片</h3>
           <p className="text-sm text-gray-500">

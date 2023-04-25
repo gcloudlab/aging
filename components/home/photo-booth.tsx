@@ -4,7 +4,7 @@ import { Download } from "lucide-react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
-import { LoadingCircle } from "../shared/icons";
+import { LoadingCircle } from "../icons";
 import Link from "next/link";
 import { Upload } from "lucide-react";
 

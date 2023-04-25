@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import useScroll from "@/lib/hooks/use-scroll";
 import Meta, { defaultMetaProps } from "./meta";
-import { Github } from "../shared/icons";
+import { GitHubIcon } from "../icons";
 import { LoadingDots } from "@/components/icons";
 
 export default function Layout({
@@ -35,16 +35,13 @@ export default function Layout({
       >
         <div className="mx-5 flex h-16 max-w-screen-xl items-center justify-between xl:mx-auto">
           <Link href="/" className="flex items-center font-display text-2xl">
-            <svg
-              width="25"
-              height="25"
-              viewBox="0 0 1155 1000"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+            <Image
+              src="/logo.png"
+              alt="Logo image of a chat bubble"
+              width="30"
+              height="30"
               className="mr-2 rounded-sm"
-            >
-              <path d="M577.344 0L1154.69 1000H0L577.344 0Z" fill="black" />
-            </svg>
+            ></Image>
             <p>Aging</p>
           </Link>
           <div className="flex items-center space-x-4">
@@ -80,7 +77,7 @@ export default function Layout({
                   {loading ? (
                     <LoadingDots color="gray" />
                   ) : (
-                    "Log in with GitHub"
+                    "Sign in with GitHub"
                   )}
                 </button>
               ))}
@@ -100,7 +97,7 @@ export default function Layout({
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Github />
+            <GitHubIcon />
           </a>
         </p>
       </div>

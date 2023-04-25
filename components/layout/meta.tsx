@@ -20,7 +20,7 @@ export default function Meta({ props }: { props: MetaProps }) {
     <Head>
       <title>{props.title}</title>
       <meta name="description" content={props.description} />
-      <link rel="icon" href="/vercel.svg" />
+      <link rel="icon" href="/favicon.ico" />
 
       <meta charSet="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />

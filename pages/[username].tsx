@@ -1,12 +1,16 @@
 import { ParsedUrlQuery } from "querystring";
 import { GetStaticProps } from "next";
 import { defaultMetaProps } from "@/components/layout/meta";
-import { getUser, getAllUsers, getUserCount } from "@/lib/api/user";
-export { default } from ".";
+import { getUser, getAllUsers, getUserCount, UserProps } from "@/lib/api/user";
+// export { default } from ".";
 import clientPromise from "@/lib/mongodb";
 
 interface Params extends ParsedUrlQuery {
   username: string;
+}
+
+export default function User({ user }: { user: UserProps }) {
+  return <>1</>;
 }
 
 export const getStaticPaths = async () => {
