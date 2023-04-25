@@ -11,7 +11,7 @@ export default NextAuth({
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
       profile(profile) {
         return {
-          id: profile.sub, // TODO: profile.sub?
+          id: profile.id.toString(), // TODO: profile.sub?
           name: profile.name || profile.login,
           username: profile.login,
           email: profile.email,
