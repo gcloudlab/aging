@@ -88,15 +88,11 @@ export default function Home({ count }: { count: number }) {
   );
 }
 
-// export default function Home({ user }: { user: UserProps }) {
-//   return <Profile user={user} settings={false} />;
-// }
-
 export async function getStaticProps() {
   const results = await getAllUsers();
   const totalUsers = await getUserCount();
   const firstUser = await getFirstUser();
-  console.log(firstUser?.name);
+  console.log("Owner:", firstUser?.name);
 
   const count = await redis.dbsize();
 

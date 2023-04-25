@@ -54,7 +54,7 @@ export default function Sign() {
                 loading
                   ? "border-gray-300 bg-gray-200"
                   : "border-black bg-black hover:bg-gray-100"
-              } w-42 h-10 rounded-md border px-2 py-1 text-sm text-white transition-all hover:text-black`}
+              } h-10 w-48 rounded-md border px-2 py-1 text-sm text-white transition-all hover:text-black`}
             >
               {loading ? (
                 <LoadingDots color="gray" />
