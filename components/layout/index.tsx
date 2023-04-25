@@ -3,7 +3,7 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import useScroll from "@/lib/hooks/use-scroll";
-import Meta, { defaultMetaProps } from "./meta";
+import Meta, { MetaProps, defaultMetaProps } from "./meta";
 import { GitHubIcon } from "../icons";
 import { LoadingDots } from "@/components/icons";
 
@@ -11,11 +11,7 @@ export default function Layout({
   meta,
   children,
 }: {
-  meta?: {
-    title?: string;
-    description?: string;
-    image?: string;
-  };
+  meta?: MetaProps;
   children: ReactNode;
 }) {
   const scrolled = useScroll(50);
@@ -24,7 +20,7 @@ export default function Layout({
 
   return (
     <>
-      <Meta props={defaultMetaProps} />
+      <Meta props={{ ...defaultMetaProps, ...meta }} />
       <div className="fixed h-screen w-full bg-gradient-to-br from-emerald-200 via-blue-100 to-rose-200" />
       <div
         className={`fixed top-0 w-full ${

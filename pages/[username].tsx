@@ -10,9 +10,9 @@ interface Params extends ParsedUrlQuery {
   username: string;
 }
 
-export default function User() {
+export default function Username() {
   const { data: session, status } = useSession();
-  return <>{session?.user?.name}</>;
+  return <>Hi, {session?.user?.name}</>;
 }
 
 export const getStaticPaths = async () => {
@@ -69,7 +69,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const ogUrl = `https://ai.aging.run/${user.username}`;
   const meta = {
     ...defaultMetaProps,
-    title: `${user.name}'s Profile | Oh my life`,
+    title: `${user.name} | Oh my life`,
     ogImage: `https://api.microlink.io/?url=${ogUrl}&screenshot=true&meta=false&embed=screenshot.url`,
     ogUrl: `https://ai.aging.run/${user.username}`,
   };
