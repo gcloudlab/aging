@@ -28,7 +28,21 @@ export default function Sign() {
       >
         {status !== "loading" &&
           (session?.user ? (
-            <Avatar />
+            <div className="text-center">
+              <Avatar />
+              <div className="w-42 mt-3">
+                {session?.user && (
+                  <button
+                    onClick={() => {
+                      signOut();
+                    }}
+                    className={`w-42 h-10 rounded-md border bg-white px-2 py-1 text-sm text-black transition-all hover:bg-black hover:text-white`}
+                  >
+                    Sign out
+                  </button>
+                )}
+              </div>
+            </div>
           ) : (
             <button
               disabled={loading}
@@ -51,18 +65,6 @@ export default function Sign() {
               )}
             </button>
           ))}
-        <div className="w-42 mt-4 text-center">
-          {!session?.user && (
-            <button
-              onClick={() => {
-                signOut();
-              }}
-              className={`w-42 h-10 rounded-md border bg-white px-2 py-1 text-sm text-black transition-all hover:bg-black hover:text-white`}
-            >
-              Sign out
-            </button>
-          )}
-        </div>
       </motion.div>
     </Layout>
   );
