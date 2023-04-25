@@ -67,7 +67,10 @@ export default function Home({ count }: { count: number }) {
           </Balancer>
         </motion.p>
         <motion.div variants={FADE_DOWN_ANIMATION_VARIANTS} className="-mb-4">
-          <Button className="group mx-auto mt-6 flex max-w-fit items-center justify-center space-x-2 rounded-full border border-black bg-black px-5 py-2 text-sm text-white transition-colors hover:bg-white hover:text-black">
+          <Button
+            className="border-orange group mx-auto mt-6 flex max-w-fit items-center justify-center space-x-2 rounded-full border bg-black px-5 py-2 text-sm text-white transition-colors hover:bg-white hover:text-black"
+            onClick={() => setShowUploadModal(true)}
+          >
             <Upload className="h-5 w-5 text-white group-hover:text-black" />
             <p>上传照片</p>
           </Button>

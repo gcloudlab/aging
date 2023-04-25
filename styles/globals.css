@@ -2,15 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-button {
+.upload-button {
   position: relative;
-  padding: 12px 35px;
-  background: #fec195;
   font-size: 17px;
   font-weight: 500;
-  color: #181818;
-  border: 3px solid #fec195;
-  border-radius: 8px;
   box-shadow: 0 0 0 #fec1958c;
   transition: all 0.3s ease-in-out;
 }
@@ -81,13 +76,13 @@ button {
   transition: all 0.8s ease;
 }
 
-button:hover {
+.upload-button:hover {
   background: transparent;
   color: #fec195;
   box-shadow: 0 0 25px #fec1958c;
 }
 
-button:hover .star-1 {
+.upload-button:hover .star-1 {
   position: absolute;
   top: -80%;
   left: -30%;
@@ -97,7 +92,7 @@ button:hover .star-1 {
   z-index: 2;
 }
 
-button:hover .star-2 {
+.upload-button:hover .star-2 {
   position: absolute;
   top: -25%;
   left: 10%;
@@ -107,7 +102,7 @@ button:hover .star-2 {
   z-index: 2;
 }
 
-button:hover .star-3 {
+.upload-button:hover .star-3 {
   position: absolute;
   top: 55%;
   left: 25%;
@@ -117,7 +112,7 @@ button:hover .star-3 {
   z-index: 2;
 }
 
-button:hover .star-4 {
+.upload-button:hover .star-4 {
   position: absolute;
   top: 30%;
   left: 80%;
@@ -127,7 +122,7 @@ button:hover .star-4 {
   z-index: 2;
 }
 
-button:hover .star-5 {
+.upload-button:hover .star-5 {
   position: absolute;
   top: 25%;
   left: 115%;
@@ -137,7 +132,7 @@ button:hover .star-5 {
   z-index: 2;
 }
 
-button:hover .star-6 {
+.upload-button:hover .star-6 {
   position: absolute;
   top: 5%;
   left: 60%;

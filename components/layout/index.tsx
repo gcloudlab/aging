@@ -32,7 +32,7 @@ export default function Layout({
         <div className="mx-5 flex h-16 max-w-screen-xl items-center justify-between xl:mx-auto">
           <Logo />
           <div className="flex items-center space-x-4">
-            {session?.user ? <Avatar /> : <Link href={"/sign"}>Join</Link>}
+            {session?.user ? <Avatar /> : <Link href={"/sign"}>Sign in</Link>}
           </div>
         </div>
       </div>

@@ -1,14 +1,16 @@
-import { HTMLAttributes, ReactNode } from "react";
+import { HTMLAttributes, MouseEventHandler, ReactNode } from "react";
 
 export default function UploadButton({
   className,
+  onClick,
   children,
 }: {
   className: string;
+  onClick: MouseEventHandler<HTMLButtonElement>;
   children: ReactNode;
 }) {
   return (
-    <button className={className}>
+    <button className={className + " upload-button"} onClick={onClick}>
       {children}
       <div className="star-1">
         <svg
