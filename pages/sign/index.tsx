@@ -1,9 +1,10 @@
 import Layout from "@/components/layout";
 import { motion } from "framer-motion";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { getProviders, useSession, signIn, signOut } from "next-auth/react";
 import { useState } from "react";
 import { LoadingDots } from "@/components/icons";
 import Avatar from "@/components/avatar";
+import GitHubIcon from "../../components/icons/github";
 
 export default function Sign() {
   const { data: session, status } = useSession();
@@ -33,17 +34,35 @@ export default function Sign() {
               disabled={loading}
               onClick={() => {
                 setLoading(true);
-                signIn("github", { callbackUrl: `/profile` });
+                signIn("github", { callbackUrl: `/` });
               }}
               className={`${
                 loading
                   ? "border-gray-300 bg-gray-200"
-                  : "border-black bg-black hover:bg-white"
-              } h-8 w-36 rounded-md border py-1 text-sm text-white transition-all hover:text-black`}
+                  : "border-black bg-black hover:bg-gray-100"
+              } w-42 h-10 rounded-md border px-2 py-1 text-sm text-white transition-all hover:text-black`}
             >
-              {loading ? <LoadingDots color="gray" /> : "Sign in with GitHub"}
+              {loading ? (
+                <LoadingDots color="gray" />
+              ) : (
+                <div className="flex items-center justify-center">
+                  <GitHubIcon className="mr-2 h-5" /> Sign in with GitHub
+                </div>
+              )}
             </button>
           ))}
+        <div className="w-42 mt-4 text-center">
+          {!session?.user && (
+            <button
+              onClick={() => {
+                signOut();
+              }}
+              className={`w-42 h-10 rounded-md border bg-white px-2 py-1 text-sm text-black transition-all hover:bg-black hover:text-white`}
+            >
+              Sign out
+            </button>
+          )}
+        </div>
       </motion.div>
     </Layout>
   );

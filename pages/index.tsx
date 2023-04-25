@@ -1,14 +1,14 @@
-import Layout from "@/components/layout";
 import Balancer from "react-wrap-balancer";
 import { motion } from "framer-motion";
-import { FADE_DOWN_ANIMATION_VARIANTS } from "@/lib/constants";
-import { useUploadModal } from "@/components/home/upload-modal";
 import { Upload } from "lucide-react";
+import Layout from "@/components/layout";
+import { useUploadModal } from "@/components/home/upload-modal";
 import PhotoBooth from "@/components/home/photo-booth";
-import { redis } from "@/lib/upstash";
 import Tooltip from "@/components/shared/tooltip";
-import { nFormatter } from "@/lib/utils";
 import Profile from "@/components/profile";
+import { FADE_DOWN_ANIMATION_VARIANTS } from "@/lib/constants";
+import { redis } from "@/lib/upstash";
+import { nFormatter } from "@/lib/utils";
 import {
   getAllUsers,
   UserProps,
@@ -16,6 +16,7 @@ import {
   getFirstUser,
 } from "@/lib/api/user";
 import clientPromise from "@/lib/mongodb";
+import Button from "@/components/button";
 
 export default function Home({ count }: { count: number }) {
   const { UploadModal, setShowUploadModal } = useUploadModal();
@@ -66,15 +67,12 @@ export default function Home({ count }: { count: number }) {
           </Balancer>
         </motion.p>
         <motion.div variants={FADE_DOWN_ANIMATION_VARIANTS} className="-mb-4">
-          <button
-            className="group mx-auto mt-6 flex max-w-fit items-center justify-center space-x-2 rounded-full border border-black bg-black px-5 py-2 text-sm text-white transition-colors hover:bg-white hover:text-black"
-            onClick={() => setShowUploadModal(true)}
-          >
+          <Button className="group mx-auto mt-6 flex max-w-fit items-center justify-center space-x-2 rounded-full border border-black bg-black px-5 py-2 text-sm text-white transition-colors hover:bg-white hover:text-black">
             <Upload className="h-5 w-5 text-white group-hover:text-black" />
             <p>上传照片</p>
-          </button>
+          </Button>
           <p className="mt-2 text-center text-sm text-gray-500">
-            已经生成 {nFormatter(count)} 张照片！
+            已经生成了 {nFormatter(count)} 张照片
           </p>
         </motion.div>
         <PhotoBooth
