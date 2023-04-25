@@ -1,11 +1,11 @@
 import { ReactNode, useState } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
-import Image from "next/image";
 import Link from "next/link";
 import useScroll from "@/lib/hooks/use-scroll";
 import Meta, { MetaProps, defaultMetaProps } from "./meta";
-import { GitHubIcon } from "../icons";
-import { LoadingDots } from "@/components/icons";
+import Footer from "./footer";
+import Avatar from "../avatar";
+import Logo from "../logo";
 
 export default function Layout({
   meta,
@@ -30,53 +30,9 @@ export default function Layout({
         } z-30 transition-all`}
       >
         <div className="mx-5 flex h-16 max-w-screen-xl items-center justify-between xl:mx-auto">
-          <Link href="/" className="flex items-center font-display text-2xl">
-            <Image
-              src="/logo.png"
-              alt="Logo image of a chat bubble"
-              width="30"
-              height="30"
-              className="mr-2 rounded-sm"
-            ></Image>
-            <p>Aging</p>
-          </Link>
+          <Logo />
           <div className="flex items-center space-x-4">
-            {status !== "loading" &&
-              (session?.user ? (
-                <Link href={`/${session.username}`}>
-                  <a>
-                    <Image
-                      className="h-9 w-9 overflow-hidden rounded-full"
-                      src={
-                        session.user.image ||
-                        `https://avatar.tobi.sh/${session.user.name}`
-                      }
-                      alt={session.user.name || "User"}
-                      placeholder="blur"
-                      blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQYV2PYsGHDfwAHNAMQumvbogAAAABJRU5ErkJggg=="
-                    />
-                  </a>
-                </Link>
-              ) : (
-                <button
-                  disabled={loading}
-                  onClick={() => {
-                    setLoading(true);
-                    signIn("github", { callbackUrl: `/profile` });
-                  }}
-                  className={`${
-                    loading
-                      ? "border-gray-300 bg-gray-200"
-                      : "border-black bg-black hover:bg-white"
-                  } h-8 w-36 rounded-md border py-1 text-sm text-white transition-all hover:text-black`}
-                >
-                  {loading ? (
-                    <LoadingDots color="gray" />
-                  ) : (
-                    "Sign in with GitHub"
-                  )}
-                </button>
-              ))}
+            {session?.user ? <Avatar /> : <Link href={"/sign"}>登录</Link>}
           </div>
         </div>
       </div>
@@ -85,18 +41,7 @@ export default function Layout({
         {children}
       </main>
 
-      <div className="absolute w-full border-t border-gray-200 bg-white py-5 text-center">
-        <p className="flex justify-center text-gray-500">
-          <a
-            className=" font-semibold text-gray-600 transition-colors hover:text-black"
-            href="https://github.com/gcloudlab/aging"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <GitHubIcon />
-          </a>
-        </p>
-      </div>
+      <Footer />
     </>
   );
 }

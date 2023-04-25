@@ -5,7 +5,9 @@ const nextConfig = {
   images: {
     domains: [
       "avatars.githubusercontent.com",
+      "avatar.tobi.sh",
       "older.yesmore.workers.dev",
+      "cloudflare-ipfs.com",
       "replicate.delivery",
       "i.postimg.cc",
     ],
@@ -19,7 +21,7 @@ const nextConfig = {
       },
       {
         source: "/github",
-        destination: "https://github.com/gcloudlab/older",
+        destination: "https://github.com/gcloudlab/aging",
         permanent: false,
       },
       {

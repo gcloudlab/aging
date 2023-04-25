@@ -92,25 +92,10 @@ export default function Home({ count }: { count: number }) {
 // }
 
 export async function getStaticProps() {
-  // try {
-  //   await clientPromise;
-  // } catch (e: any) {
-  //   if (e.code === "ENOTFOUND") {
-  //     // cluster is still provisioning
-  //     return {
-  //       props: {
-  //         clusterStillProvisioning: true,
-  //       },
-  //     };
-  //   } else {
-  //     throw new Error(`Connection limit reached. Please try again later.`);
-  //   }
-  // }
-
   const results = await getAllUsers();
   const totalUsers = await getUserCount();
   const firstUser = await getFirstUser();
-  // console.log(results, totalUsers, firstUser);
+  console.log(firstUser?.name);
 
   const count = await redis.dbsize();
 

@@ -20,6 +20,9 @@ export default NextAuth({
           verified: true,
         };
       },
+      httpOptions: {
+        timeout: 50000,
+      },
     }),
   ],
   callbacks: {

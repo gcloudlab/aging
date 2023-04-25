@@ -17,15 +17,15 @@ export default function Username() {
 
 export const getStaticPaths = async () => {
   // You should remove this try-catch block once your MongoDB Cluster is fully provisioned
-  try {
-    await clientPromise;
-  } catch (e: any) {
-    // cluster is still provisioning
-    return {
-      paths: [],
-      fallback: true,
-    };
-  }
+  // try {
+  //   await clientPromise;
+  // } catch (e: any) {
+  //   // cluster is still provisioning
+  //   return {
+  //     paths: [],
+  //     fallback: true,
+  //   };
+  // }
 
   const results = await getAllUsers();
   const paths = results.flatMap(({ users }) =>
@@ -39,20 +39,20 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   // You should remove this try-catch block once your MongoDB Cluster is fully provisioned
-  try {
-    await clientPromise;
-  } catch (e: any) {
-    if (e.code === "ENOTFOUND") {
-      // cluster is still provisioning
-      return {
-        props: {
-          clusterStillProvisioning: true,
-        },
-      };
-    } else {
-      throw new Error(`Connection limit reached. Please try again later.`);
-    }
-  }
+  // try {
+  //   await clientPromise;
+  // } catch (e: any) {
+  //   if (e.code === "ENOTFOUND") {
+  //     // cluster is still provisioning
+  //     return {
+  //       props: {
+  //         clusterStillProvisioning: true,
+  //       },
+  //     };
+  //   } else {
+  //     throw new Error(`Connection limit reached. Please try again later.`);
+  //   }
+  // }
 
   const { username } = context.params as Params;
   const user = await getUser(username);
