@@ -4,13 +4,15 @@ import { defaultMetaProps } from "@/components/layout/meta";
 import { getUser, getAllUsers, getUserCount, UserProps } from "@/lib/api/user";
 // export { default } from ".";
 import clientPromise from "@/lib/mongodb";
+import { useSession } from "next-auth/react";
 
 interface Params extends ParsedUrlQuery {
   username: string;
 }
 
-export default function User({ user }: { user: UserProps }) {
-  return <>1</>;
+export default function User() {
+  const { data: session, status } = useSession();
+  return <>{session?.user?.name}</>;
 }
 
 export const getStaticPaths = async () => {
