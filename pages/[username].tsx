@@ -4,16 +4,13 @@ import Layout from "@/components/layout";
 import { MetaProps, defaultMetaProps } from "@/components/layout/meta";
 import { getUser, getAllUsers, getUserCount, UserProps } from "@/lib/api/user";
 // export { default } from ".";
-import clientPromise from "@/lib/mongodb";
-import { useState } from "react";
 import Avatar from "@/components/avatar";
 import { motion } from "framer-motion";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import SignOutButton from "@/components/button/sign-out-button";
 import { FADE_DOWN_ANIMATION_VARIANTS } from "@/lib/constants";
 import Balancer from "react-wrap-balancer";
-import GithubButton from "@/components/button/github-sign-button";
-import SignOutButton from "@/components/button/sign-out-button";
-import EmailButton from "@/components/button/email-sign-butto";
+import Link from "next/link";
 
 interface Params extends ParsedUrlQuery {
   username: string;
@@ -28,10 +25,10 @@ export default function Username({
 }) {
   // console.log("[username]", user);
   const { data: session, status } = useSession();
-  const [loading, setLoading] = useState(false);
+  console.log("[Status]", status);
 
   return (
-    <Layout>
+    <Layout meta={meta}>
       <motion.div
         className="z-10 "
         initial="hidden"
@@ -47,26 +44,30 @@ export default function Username({
           },
         }}
       >
-        {status !== "loading" &&
-          (session?.user ? (
+        <motion.div>
+          {user ? (
             <motion.div className="flex flex-col items-center justify-center">
-              <Avatar size={20} />
-              {/* <motion.h3
-                className="bg-gradient-to-br from-black to-stone-500 bg-clip-text text-center font-display text-4xl font-bold tracking-[-0.02em] text-transparent drop-shadow-sm md:text-7xl md:leading-[5rem]"
+              <Avatar url={user.image} username={user.username} size={20} />
+              <motion.h3
+                className="mt-2 bg-gradient-to-br from-black to-stone-500 bg-clip-text text-center font-display text-3xl font-bold tracking-[-0.02em] text-transparent drop-shadow-sm"
                 variants={FADE_DOWN_ANIMATION_VARIANTS}
               >
-                <Balancer>Hi, {session?.user.name}</Balancer>
-              </motion.h3> */}
-              <motion.div className="mt-3 w-48">
-                {session?.user && <SignOutButton />}
+                <Balancer>Here, {user.name}</Balancer>
+              </motion.h3>
+              <motion.div className="mt-4 w-48">
+                {session?.user ? (
+                  <SignOutButton />
+                ) : (
+                  <div className="mt-4 text-center">
+                    <Link href="/sign">去登录</Link>
+                  </div>
+                )}
               </motion.div>
             </motion.div>
           ) : (
-            <div className="flex flex-col">
-              <EmailButton />
-              <GithubButton className="mt-2" />
-            </div>
-          ))}
+            <div className="flex flex-col">User Not Found</div>
+          )}
+        </motion.div>
       </motion.div>
     </Layout>
   );
@@ -74,20 +75,26 @@ export default function Username({
 
 export const getStaticPaths = async () => {
   // You should remove this try-catch block once your MongoDB Cluster is fully provisioned
-  try {
-    await clientPromise;
-  } catch (e: any) {
-    // cluster is still provisioning
-    return {
-      paths: [],
-      fallback: true,
-    };
-  }
+  // try {
+  //   await clientPromise;
+  // } catch (e: any) {
+  //   // cluster is still provisioning
+  //   return {
+  //     paths: [],
+  //     fallback: true,
+  //   };
+  // }
 
   const results = await getAllUsers();
-  const paths = results.flatMap(({ users }) =>
-    users.map((user) => ({ params: { username: user.username } })),
-  );
+
+  const paths = results.flatMap(({ users }) => {
+    return users.map((user) => {
+      return {
+        params: { username: user?.username ? user.username : user.email },
+      };
+    });
+  });
+
   return {
     paths,
     fallback: true,
@@ -117,7 +124,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
   if (!user) {
     return {
       notFound: true,
-      revalidate: 10,
     };
   }
 

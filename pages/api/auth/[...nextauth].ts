@@ -12,21 +12,21 @@ export default NextAuth({
       server: process.env.EMAIL_SERVER,
       from: process.env.EMAIL_FROM,
       maxAge: 10 * 60, // 设置邮箱链接失效时间，默认24小时
-      // async sendVerificationRequest({ identifier: email, url, provider }) {
-      //   const { host } = new URL(url);
-      //   const transport = createTransport(provider.server);
-      //   const result = await transport.sendMail({
-      //     to: email,
-      //     from: provider.from,
-      //     subject: `${host} 注册认证`,
-      //     text: text({ url, host }),
-      //     html: html({ url, host }),
-      //   });
-      //   const failed = result.rejected.concat(result.pending).filter(Boolean);
-      //   if (failed.length) {
-      //     throw new Error(`Email(s) (${failed.join(", ")}) could not be sent`);
-      //   }
-      // },
+      async sendVerificationRequest({ identifier: email, url, provider }) {
+        const { host } = new URL(url);
+        const transport = createTransport(provider.server);
+        const result = await transport.sendMail({
+          to: email,
+          from: provider.from,
+          subject: `Welcome to ${host}`,
+          text: text({ url, host }),
+          html: html({ url, host }),
+        });
+        const failed = result.rejected.concat(result.pending).filter(Boolean);
+        if (failed.length) {
+          throw new Error(`Email(s) (${failed.join(", ")}) could not be sent`);
+        }
+      },
     }),
     GitHubProvider({
       clientId: process.env.GITHUB_CLIENT_ID,
@@ -47,8 +47,13 @@ export default NextAuth({
       },
     }),
   ],
+  theme: {
+    colorScheme: "dark",
+  },
   callbacks: {
     async session({ session, user }) {
+      console.log("[Auth Callback]", session, user);
+
       // Send properties to the client, like an access_token from a provider.
       session.username = user.username;
       return session;
@@ -62,11 +67,11 @@ export default NextAuth({
 function html(params: { url: string; host: string; theme?: Theme }) {
   const { url, host, theme } = params;
   //由于使用
-  const escapedHost = host.replace(/\./g, "&#8203;.");
+  const escapedHost = host?.replace(/\./g, "&#8203;.");
 
   return `
 <body>
-  <div style="background:#f2f5f7;display: flex;justify-content: center;align-items: center; height:200px">欢迎注册${escapedHost},点击<a href="${url}" target="_blank">登录</a></div>
+  <div style="background:#f2f5f7;display: flex;justify-content: center;align-items: center; height:200px">欢迎注册${escapedHost}, 点击魔法链接<a href="${url}" target="_blank">🔗登录</a></div>
 </body>
 `;
 }
