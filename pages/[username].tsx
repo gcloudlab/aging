@@ -6,10 +6,13 @@ import { getUser, getAllUsers, getUserCount, UserProps } from "@/lib/api/user";
 // export { default } from ".";
 import clientPromise from "@/lib/mongodb";
 import { useState } from "react";
-import { GitHubIcon, LoadingDots } from "@/components/icons";
 import Avatar from "@/components/avatar";
 import { motion } from "framer-motion";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
+import { FADE_DOWN_ANIMATION_VARIANTS } from "@/lib/constants";
+import Balancer from "react-wrap-balancer";
+import GithubButton from "@/components/button/github-sign-button";
+import SignOutButton from "@/components/button/sign-out-button";
 
 interface Params extends ParsedUrlQuery {
   username: string;
@@ -45,42 +48,20 @@ export default function Username({
       >
         {status !== "loading" &&
           (session?.user ? (
-            <div className="flex flex-col items-center justify-center">
-              <Avatar />
-              <div className="mt-3 w-48">
-                {session?.user && (
-                  <button
-                    onClick={() => {
-                      signOut();
-                    }}
-                    className={`h-10 w-48 rounded-md border bg-white px-2 py-1 text-sm text-black transition-all hover:bg-black hover:text-white`}
-                  >
-                    Sign out
-                  </button>
-                )}
-              </div>
-            </div>
+            <motion.div className="flex flex-col items-center justify-center">
+              <Avatar size={20} />
+              <motion.h3
+                className="bg-gradient-to-br from-black to-stone-500 bg-clip-text text-center font-display text-4xl font-bold tracking-[-0.02em] text-transparent drop-shadow-sm md:text-7xl md:leading-[5rem]"
+                variants={FADE_DOWN_ANIMATION_VARIANTS}
+              >
+                <Balancer>Hi, {session?.user.name}</Balancer>
+              </motion.h3>
+              <motion.div className="mt-3 w-48">
+                {session?.user && <SignOutButton />}
+              </motion.div>
+            </motion.div>
           ) : (
-            <button
-              disabled={loading}
-              onClick={() => {
-                setLoading(true);
-                signIn("github", { callbackUrl: `/` });
-              }}
-              className={`${
-                loading
-                  ? "border-gray-300 bg-gray-200"
-                  : "border-black bg-black hover:bg-gray-100"
-              } h-10 w-48 rounded-md border px-2 py-1 text-sm text-white transition-all hover:text-black`}
-            >
-              {loading ? (
-                <LoadingDots color="gray" />
-              ) : (
-                <div className="flex items-center justify-center">
-                  <GitHubIcon className="mr-2 h-5" /> Sign in with GitHub
-                </div>
-              )}
-            </button>
+            <GithubButton />
           ))}
       </motion.div>
     </Layout>

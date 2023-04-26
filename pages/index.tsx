@@ -16,7 +16,7 @@ import {
   getFirstUser,
 } from "@/lib/api/user";
 import clientPromise from "@/lib/mongodb";
-import Button from "@/components/button";
+import Button from "@/components/button/upload-button";
 
 export default function Home({ count }: { count: number }) {
   const { UploadModal, setShowUploadModal } = useUploadModal();

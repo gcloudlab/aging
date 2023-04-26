@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 
-export default function Avatar() {
+export default function Avatar({ size = 9 }: { size?: number }) {
   const { data: session, status } = useSession();
 
   return (
@@ -10,10 +10,10 @@ export default function Avatar() {
       <Link href={`/${session.username}`}>
         <a>
           <Image
-            className="h-9 w-9 overflow-hidden rounded-full"
+            className={`h-${size} w-${size} overflow-hidden rounded-full`}
             src={
               session.user?.image ||
-              `https://avatar.tobi.sh/${session.user?.name}`
+              `https://vercel.com/api/www/avatar?teamId=team_cRIvrwe3E8708n0pNjHaiTNZ&s=64`
             }
             alt={session.user?.name || "User"}
             placeholder="blur"
