@@ -8,18 +8,18 @@ export default function Avatar({ size = 9 }: { size?: number }) {
   return (
     session && (
       <Link href={`/${session.username}`}>
-        <a>
-          <Image
-            className={`h-${size} w-${size} overflow-hidden rounded-full`}
-            src={
-              session.user?.image ||
-              `https://vercel.com/api/www/avatar?teamId=team_cRIvrwe3E8708n0pNjHaiTNZ&s=64`
-            }
-            alt={session.user?.name || "User"}
-            placeholder="blur"
-            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQYV2PYsGHDfwAHNAMQumvbogAAAABJRU5ErkJggg=="
-          />
-        </a>
+        <Image
+          width={100}
+          height={100}
+          className={`h-${size} w-${size} overflow-hidden rounded-full`}
+          src={
+            session.user?.image ||
+            `https://avatar.tobi.sh/${session.user?.name}`
+          }
+          alt={session.user?.name || "User"}
+          placeholder="blur"
+          blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQYV2PYsGHDfwAHNAMQumvbogAAAABJRU5ErkJggg=="
+        />
       </Link>
     )
   );

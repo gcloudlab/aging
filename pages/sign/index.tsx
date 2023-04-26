@@ -2,6 +2,7 @@ import Layout from "@/components/layout";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import GithubButton from "@/components/button/github-sign-button";
+import EmailButton from "@/components/button/email-sign-butto";
 
 // TODO: Redirect when signd
 export default function Sign() {
@@ -22,7 +23,10 @@ export default function Sign() {
           },
         }}
       >
-        <GithubButton />
+        <div className="flex flex-col">
+          <EmailButton />
+          <GithubButton className="mt-2" />
+        </div>
       </motion.div>
     </Layout>
   );

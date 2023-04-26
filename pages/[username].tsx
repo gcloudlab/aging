@@ -50,12 +50,12 @@ export default function Username({
           (session?.user ? (
             <motion.div className="flex flex-col items-center justify-center">
               <Avatar size={20} />
-              <motion.h3
+              {/* <motion.h3
                 className="bg-gradient-to-br from-black to-stone-500 bg-clip-text text-center font-display text-4xl font-bold tracking-[-0.02em] text-transparent drop-shadow-sm md:text-7xl md:leading-[5rem]"
                 variants={FADE_DOWN_ANIMATION_VARIANTS}
               >
                 <Balancer>Hi, {session?.user.name}</Balancer>
-              </motion.h3>
+              </motion.h3> */}
               <motion.div className="mt-3 w-48">
                 {session?.user && <SignOutButton />}
               </motion.div>
