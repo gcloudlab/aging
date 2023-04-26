@@ -2,18 +2,25 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { LoadingDots } from "@/components/icons";
 import toast, { Toaster } from "react-hot-toast";
+import { isEmail } from "../../lib/utils";
 
 export default function EmailButton({ email }: { email: string }) {
   const [loading, setLoading] = useState(false);
   const handleSubmit = () => {
-    if (email !== "") {
-      setLoading(true);
-      signIn("email", { email: email, callbackUrl: `/` });
-    } else {
+    if (email === "") {
       toast("邮箱不能为空", {
         icon: "😅",
       });
+      return;
     }
+    if (!isEmail(email)) {
+      toast("邮箱格式错误", {
+        icon: "😅",
+      });
+      return;
+    }
+    setLoading(true);
+    signIn("email", { email: email, callbackUrl: `/` });
   };
 
   return (

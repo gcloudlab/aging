@@ -34,7 +34,7 @@ export default NextAuth({
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
       profile(profile) {
         return {
-          id: profile.id.toString(), // TODO: profile.sub?
+          id: profile.id.toString(),
           name: profile.name || profile.login,
           username: profile.login,
           email: profile.email,
@@ -74,12 +74,46 @@ export default NextAuth({
  */
 function html(params: { url: string; host: string; theme?: Theme }) {
   const { url, host, theme } = params;
-  //由于使用
   const escapedHost = host?.replace(/\./g, "&#8203;.");
+  const brandColor = "#346df1";
+  const color = {
+    background: "#f9f9f9",
+    text: "#444",
+    mainBackground: "#fff",
+    buttonBackground: brandColor,
+    buttonBorder: brandColor,
+    buttonText: "#fff",
+  };
 
   return `
-<body>
-  <div style="background:#f2f5f7;display: flex;justify-content: center;align-items: center; height:200px">欢迎注册${escapedHost}, 点击魔法链接<a href="${url}" target="_blank">🔗登录</a></div>
+  <body style="background: ${color.background};">
+  <table width="100%" border="0" cellspacing="20" cellpadding="0"
+    style="background: ${color.mainBackground}; max-width: 600px; margin: auto; border-radius: 10px;">
+    <tr>
+      <td align="center"
+        style="padding: 10px 0px; font-size: 22px; font-family: Helvetica, Arial, sans-serif; color: ${color.text};">
+        正在登录 <strong>${escapedHost}</strong>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" style="padding: 20px 0;">
+        <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td align="center" style="border-radius: 5px;" bgcolor="${color.buttonBackground}"><a href="${url}"
+                target="_blank"
+                style="font-size: 18px; font-family: Helvetica, Arial, sans-serif; color: ${color.buttonText}; text-decoration: none; border-radius: 5px; padding: 10px 20px; border: 1px solid ${color.buttonBorder}; display: inline-block; font-weight: bold;">点击登录
+                </a></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td align="center"
+        style="padding: 0px 0px 10px 0px; font-size: 16px; line-height: 22px; font-family: Helvetica, Arial, sans-serif; color: ${color.text};">
+        如果您没有发送此电子邮件，请忽略它。
+      </td>
+    </tr>
+  </table>
 </body>
 `;
 }

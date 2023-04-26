@@ -3,8 +3,6 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import GithubButton from "@/components/button/github-sign-button";
 import EmailButton from "@/components/button/email-sign-butto";
-import { GetServerSideProps } from "next";
-import { getSession } from "next-auth/react";
 
 // TODO: Redirect when signd
 export default function Sign() {
