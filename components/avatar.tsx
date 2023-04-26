@@ -13,7 +13,7 @@ export default function Avatar({
 }) {
   // const { data: session, status } = useSession();
 
-  return url ? (
+  return (
     <Link href={`/${username}`}>
       <Image
         width={100}
@@ -25,15 +25,5 @@ export default function Avatar({
         blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQYV2PYsGHDfwAHNAMQumvbogAAAABJRU5ErkJggg=="
       />
     </Link>
-  ) : (
-    <Image
-      width={100}
-      height={100}
-      className={`h-${size} w-${size} overflow-hidden rounded-full`}
-      src={`/logo.png`}
-      alt={"Unkonw"}
-      placeholder="blur"
-      blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQYV2PYsGHDfwAHNAMQumvbogAAAABJRU5ErkJggg=="
-    />
   );
 }

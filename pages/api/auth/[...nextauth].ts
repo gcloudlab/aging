@@ -53,9 +53,10 @@ export default NextAuth({
   callbacks: {
     async session({ session, user }) {
       console.log("[Auth Callback]", session, user);
-
       // Send properties to the client, like an access_token from a provider.
-      session.username = user.username;
+      session.username = user?.username || user.email;
+
+      console.log("[Auth Callback1]", session);
       return session;
     },
   },

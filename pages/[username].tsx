@@ -120,7 +120,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   const { username } = context.params as Params;
   const user = await getUser(username);
-  console.log("[User]", user?.name);
+  console.log("[User]", user, username);
   if (!user) {
     return {
       notFound: true,
