@@ -12,7 +12,7 @@ export default function Avatar({
   const { data: session, status } = useSession();
 
   return (
-    <Link href={`/${name || session?.user?.name}`}>
+    <Link href={`/${name || session?.username}`}>
       <Image
         width={100}
         height={100}
