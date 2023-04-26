@@ -13,6 +13,7 @@ import { FADE_DOWN_ANIMATION_VARIANTS } from "@/lib/constants";
 import Balancer from "react-wrap-balancer";
 import GithubButton from "@/components/button/github-sign-button";
 import SignOutButton from "@/components/button/sign-out-button";
+import EmailButton from "@/components/button/email-sign-butto";
 
 interface Params extends ParsedUrlQuery {
   username: string;
@@ -61,7 +62,10 @@ export default function Username({
               </motion.div>
             </motion.div>
           ) : (
-            <GithubButton />
+            <div className="flex flex-col">
+              <EmailButton />
+              <GithubButton className="mt-2" />
+            </div>
           ))}
       </motion.div>
     </Layout>
