@@ -11,7 +11,7 @@ export default NextAuth({
     EmailProvider({
       server: process.env.EMAIL_SERVER,
       from: process.env.EMAIL_FROM,
-      maxAge: 10 * 60, // 设置邮箱链接失效时间，默认24小时
+      maxAge: 10 * 60, // 10min, 设置邮箱链接失效时间，默认24小时
       async sendVerificationRequest({ identifier: email, url, provider }) {
         const { host } = new URL(url);
         const transport = createTransport(provider.server);
@@ -55,8 +55,6 @@ export default NextAuth({
       console.log("[Auth Callback]", session, user);
       // Send properties to the client, like an access_token from a provider.
       session.username = user?.username || user.email;
-
-      console.log("[Auth Callback1]", session);
       return session;
     },
   },

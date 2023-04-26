@@ -2,7 +2,13 @@ import { ParsedUrlQuery } from "querystring";
 import { GetStaticProps } from "next";
 import Layout from "@/components/layout";
 import { MetaProps, defaultMetaProps } from "@/components/layout/meta";
-import { getUser, getAllUsers, getUserCount, UserProps } from "@/lib/api/user";
+import {
+  getUser,
+  getAllUsers,
+  getUserCount,
+  UserProps,
+  getUserByEmail,
+} from "@/lib/api/user";
 // export { default } from ".";
 import Avatar from "@/components/avatar";
 import { motion } from "framer-motion";
@@ -47,7 +53,7 @@ export default function Username({
         <motion.div>
           {user ? (
             <motion.div className="flex flex-col items-center justify-center">
-              <Avatar url={user.image} username={user.username} size={20} />
+              <Avatar name={user.username} size={20} />
               <motion.h3
                 className="mt-2 bg-gradient-to-br from-black to-stone-500 bg-clip-text text-center font-display text-3xl font-bold tracking-[-0.02em] text-transparent drop-shadow-sm"
                 variants={FADE_DOWN_ANIMATION_VARIANTS}
@@ -120,7 +126,10 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   const { username } = context.params as Params;
   const user = await getUser(username);
-  console.log("[User]", user, username);
+  // const user_email = await getUserByEmail("songsonghhhh@gmail.com");
+  console.log("[User]", user?.username);
+  // console.log("[user_email]", user_email?.email);
+
   if (!user) {
     return {
       notFound: true,

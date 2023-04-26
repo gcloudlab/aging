@@ -92,7 +92,7 @@ export async function getStaticProps() {
   const results = await getAllUsers();
   const totalUsers = await getUserCount();
   const firstUser = await getFirstUser();
-  console.log("Owner:", firstUser?.name);
+  // console.log("Owner:", firstUser?.name);
 
   const count = await redis.dbsize();
 

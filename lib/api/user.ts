@@ -58,6 +58,23 @@ export async function getUser(username: string): Promise<UserProps | null> {
   }
 }
 
+export async function getUserByEmail(email: string): Promise<UserProps | null> {
+  const client = await clientPromise;
+  const collection = client.db("test").collection("users");
+  const results = await collection.findOne<UserProps>(
+    { email },
+    { projection: { _id: 0, emailVerified: 0 } },
+  );
+  if (results) {
+    return {
+      ...results,
+      bioMdx: await getMdxSource(results.bio || placeholderBio),
+    };
+  } else {
+    return null;
+  }
+}
+
 export async function getFirstUser(): Promise<UserProps | null> {
   const client = await clientPromise;
   const collection = client.db("test").collection("users");

@@ -16,7 +16,6 @@ export default function Layout({
 }) {
   const scrolled = useScroll(50);
   const { data: session, status } = useSession();
-  const [loading, setLoading] = useState(false);
 
   return (
     <>
@@ -32,14 +31,7 @@ export default function Layout({
         <div className="mx-5 flex h-16 max-w-screen-xl items-center justify-between xl:mx-auto">
           <Logo />
           <div className="flex items-center space-x-4">
-            {session?.user ? (
-              <Avatar
-                url={session?.user?.image || "/ikun.png"}
-                username={session?.user?.name || session?.user?.email || "u"}
-              />
-            ) : (
-              <Link href={"/sign"}>登录</Link>
-            )}
+            {session?.user ? <Avatar /> : <Link href={"/sign"}>登录</Link>}
           </div>
         </div>
       </div>
