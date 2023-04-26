@@ -61,3 +61,16 @@ export const truncate = (str: string, length: number) => {
   if (!str || str.length <= length) return str;
   return `${str.slice(0, length)}...`;
 };
+
+export function isEmail(str: string) {
+  const reg = /^([a-zA-Z\d._%+-]+)@([a-zA-Z\d.-]+\.[a-zA-Z]{2,})$/;
+  return reg.test(str);
+}
+
+export function matchEmail(str: string) {
+  const result = str.match(/([a-zA-Z\d._%+-]+)@([a-zA-Z\d.-]+\.[a-zA-Z]{2,})/);
+  if (result) {
+    return result;
+  }
+  return null;
+}

@@ -4,6 +4,7 @@ import EmailProvider from "next-auth/providers/email";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import clientPromise from "lib/mongodb";
 import { createTransport } from "nodemailer";
+import { matchEmail } from "@/lib/utils";
 
 export default NextAuth({
   adapter: MongoDBAdapter(clientPromise),
@@ -52,9 +53,17 @@ export default NextAuth({
   },
   callbacks: {
     async session({ session, user }) {
-      console.log("[Auth Callback]", session, user);
       // Send properties to the client, like an access_token from a provider.
-      session.username = user?.username || user.email;
+      if (user?.username) {
+        session.username = user?.username;
+        session.type = "github";
+      } else if (user?.email) {
+        const match = matchEmail(user.email);
+        session.username = match?.[1] || user.email;
+        session.domain = match?.[2];
+        session.type = "email";
+      }
+      console.log("[Auth Callback]", session, user);
       return session;
     },
   },

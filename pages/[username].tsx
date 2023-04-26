@@ -15,6 +15,7 @@ import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import SignOutButton from "@/components/button/sign-out-button";
 import { FADE_DOWN_ANIMATION_VARIANTS } from "@/lib/constants";
+import { isEmail } from "@/lib/utils";
 import Balancer from "react-wrap-balancer";
 import Link from "next/link";
 
@@ -55,10 +56,10 @@ export default function Username({
             <motion.div className="flex flex-col items-center justify-center">
               <Avatar name={user.username} size={20} />
               <motion.h3
-                className="mt-2 bg-gradient-to-br from-black to-stone-500 bg-clip-text text-center font-display text-3xl font-bold tracking-[-0.02em] text-transparent drop-shadow-sm"
+                className="mt-2 w-full bg-gradient-to-br from-black to-stone-500 bg-clip-text text-center font-display text-3xl font-bold tracking-[-0.02em] text-transparent drop-shadow-sm"
                 variants={FADE_DOWN_ANIMATION_VARIANTS}
               >
-                <Balancer>Here, {user.name}</Balancer>
+                <Balancer>Here, {user.name || user.email}</Balancer>
               </motion.h3>
               <motion.div className="mt-4 w-48">
                 {session?.user ? (
@@ -124,13 +125,18 @@ export const getStaticProps: GetStaticProps = async (context) => {
   //   }
   // }
 
-  const { username } = context.params as Params;
-  const user = await getUser(username);
-  // const user_email = await getUserByEmail("songsonghhhh@gmail.com");
-  console.log("[User]", user?.username);
-  // console.log("[user_email]", user_email?.email);
+  const params = context.params as Params;
 
-  if (!user) {
+  let use_info;
+  if (isEmail(params.username)) {
+    use_info = await getUserByEmail(params.username);
+    console.log("[User email]", use_info?.email);
+  } else {
+    use_info = await getUser(params.username);
+    console.log("[User]", use_info?.username);
+  }
+
+  if (!use_info) {
     return {
       notFound: true,
     };
@@ -139,12 +145,12 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const results = await getAllUsers();
   const totalUsers = await getUserCount();
 
-  const ogUrl = `https://ai.aging.run/${user.username}`;
+  const ogUrl = `https://ai.aging.run/${use_info.username}`;
   const meta = {
     ...defaultMetaProps,
-    title: `${user.name} | Oh my life`,
+    title: `${use_info.name || use_info.email} | Oh my life`,
     ogImage: `https://api.microlink.io/?url=${ogUrl}&screenshot=true&meta=false&embed=screenshot.url`,
-    ogUrl: `https://ai.aging.run/${user.username}`,
+    ogUrl: `https://ai.aging.run/${use_info.username}`,
   };
 
   return {
@@ -152,7 +158,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       meta,
       results,
       totalUsers,
-      user,
+      user: use_info,
     },
     revalidate: 10,
   };
