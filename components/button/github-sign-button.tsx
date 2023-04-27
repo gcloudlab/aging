@@ -16,7 +16,7 @@ export default function GithubButton({ className }: { className?: string }) {
         loading
           ? "border-gray-300 bg-gray-200"
           : "border-black bg-black hover:bg-gray-100"
-      } h-10 w-56 rounded-md border px-2 py-1 text-sm text-white transition-all hover:text-black`}
+      } h-10 rounded-md border px-2 py-1 text-sm text-white transition-all hover:text-black`}
     >
       {loading ? (
         <LoadingDots color="gray" />

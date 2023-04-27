@@ -25,9 +25,9 @@ export default function Sign() {
           },
         }}
       >
-        <div className="flex flex-col text-center">
+        <div className="flex w-64 flex-col text-center">
           <input
-            className="mb-2 w-56 rounded-md"
+            className="mb-2 rounded-md"
             type="text"
             placeholder="输入邮箱"
             onChange={(e) => setEmail(e.target.value)}

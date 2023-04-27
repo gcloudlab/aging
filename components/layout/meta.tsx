@@ -26,6 +26,11 @@ export default function Meta({ props }: { props: MetaProps }) {
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta property="og:title" content={props.title} />
       <meta property="og:description" content={props.description} />
+      <script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3965073406028614"
+        crossOrigin="anonymous"
+      ></script>
     </Head>
   );
 }
